@@ -46,7 +46,6 @@ do
   if [[ $commit == true ]]
   then
     echo $dateTime, $result >> "logs/${key}_report.log"
-    echo By default we keep 2000 last log entries.  Feel free to modify this to meet your needs.
     echo "$(tail -3000 logs/${key}_report.log)" > "logs/${key}_report.log"
   else
     echo "    $dateTime, $result"
@@ -59,6 +58,6 @@ then
   git config --global user.name 'AGDDoS-bot'
   git config --global user.email '3356136957@qq.com'
   git add -A --force logs/
-  git commit -am '[Automated] Update Health Check Logs [skip ci]'
+  git commit -am '[Automated] Update Health Check Logs [skip ci] [update-status]'
   git push
 fi
