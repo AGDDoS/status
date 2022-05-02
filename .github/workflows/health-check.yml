@@ -2,8 +2,11 @@ name: Scheduled Health Check
 
 # Controls when the action will run.
 on:
+  push:
+    branches:
+    - master
   schedule:
-    - cron: "0,15,30,45 4,8,12,16,20,24 * * *" # 24/day
+    - cron: "0,15,30,45 * * * *" # 96/day
 
 jobs:
   health_check:
