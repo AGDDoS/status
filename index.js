@@ -45,10 +45,10 @@ function getColor(uptimeVal) {
   return uptimeVal == null
     ? "nodata"
     : uptimeVal == 1
-    ? "success"
-    : uptimeVal < 0.3
-    ? "failure"
-    : "partial";
+      ? "success"
+      : uptimeVal < 0.3
+        ? "failure"
+        : "partial";
 }
 
 function constructStatusSquare(key, date, uptimeVal) {
@@ -110,24 +110,24 @@ function getStatusText(color) {
   return color == "nodata"
     ? "No Data Available"
     : color == "success"
-    ? "Fully Operational"
-    : color == "failure"
-    ? "Major Outage"
-      : color == "partial"
-    ? "Partial Outage"
-    : "Unknown";
+      ? "Fully Operational"
+      : color == "failure"
+        ? "Major Outage"
+        : color == "partial"
+          ? "Partial Outage"
+          : "Unknown";
 }
 
 function getStatusDescriptiveText(color) {
   return color == "nodata"
     ? "No Data Available: Health check was not performed."
     : color == "success"
-    ? "No downtime recorded today."
-    : color == "failure"
-    ? "Major outages recorded today."
-    : color == "partial"
-    ? "Partial outages recorded today."
-    : "Unknown";
+      ? "No downtime recorded today."
+      : color == "failure"
+        ? "Major outages recorded today."
+        : color == "partial"
+          ? "Partial outages recorded today."
+          : "Unknown";
 }
 
 function getTooltip(key, date, quartile, color) {
@@ -167,11 +167,12 @@ function getDayAverage(val) {
     return val.reduce((a, v) => a + v) / val.length;
   }
 }
-
+// 获得相对日
 function getRelativeDays(date1, date2) {
   return Math.floor(Math.abs((date1 - date2) / (24 * 3600 * 1000)));
 }
 
+// 用时间分行
 function splitRowsByDate(rows) {
   let dateValues = {};
   let sum = 0,
@@ -183,7 +184,7 @@ function splitRowsByDate(rows) {
     }
 
     const [dateTimeStr, resultStr] = row.split(',', 2);
-    // Replace '-' with '/' because Safari
+    // Replace '-' with '/' because "Safari"
     const dateTime = new Date(Date.parse(dateTimeStr.replaceAll('-', '/') + ' GMT'));
     const dateStr = dateTime.toDateString();
 
@@ -237,6 +238,7 @@ function hideTooltip() {
   }, 1000);
 }
 
+// 生成所有报告
 async function genAllReports() {
   const response = await fetch("urls.cfg");
   const configText = await response.text();
@@ -252,11 +254,12 @@ async function genAllReports() {
   }
 }
 
+// 动态生成事故报告
 async function genIncidentReport() {
   const response = await fetch("incident_report.md");
   if (response.ok) {
     const markdown = await response.text();
     const htmlDom = DOMPurify.sanitize(marked.parse(markdown));
     document.getElementById('incidentReport').innerHTML = htmlDom;
-  } 
+  }
 }
