@@ -27,22 +27,22 @@ for (( index=0; index < ${#KEYSARRAY[@]}; index++))
 do
   key="${KEYSARRAY[index]}"
   url="${URLSARRAY[index]}"
-  echo "  $key=$url"
+  echo "> $key=$url"
 
   for i in 1 2 3 4; 
   do
     response=$(curl --write-out '%{http_code}' --silent --output /dev/null $url)
     if [ "$response" -eq 200 ] || [ "$response" -eq 202 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 418 ]; then
       result="success"
-      echo "$url is up ( $response )"
+      echo "[*] $url is up (Code: $response)"
     else
       result="failed"
-      echo "$url is down"
+      echo "[!] $url is down"
     fi
     if [ "$result" = "success" ]; then
       break
     fi
-    sleep 5
+    sleep 1 # 等待1s重试
   done
   dateTime=$(date +'%Y-%m-%d %H:%M')
   if [[ $commit == true ]]
