@@ -29,7 +29,7 @@ do
   url="${URLSARRAY[index]}"
   echo "> $key=$url"
 
-  for i in 1 2 3 4; 
+  for i in 1 2 3; 
   do
     response=$(curl --write-out '%{http_code}' --silent --output /dev/null $url)
     if [ "$response" -eq 200 ] || [ "$response" -eq 202 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 418 ]; then
@@ -37,7 +37,7 @@ do
       echo "[*] $url is up (Code: $response)"
     else
       result="failed"
-      echo "[!] $url is down"
+      echo "[!] $url is down(times $i), wait 1s and retry."
     fi
     if [ "$result" = "success" ]; then
       break
