@@ -108,26 +108,26 @@ function templatizeString(text, parameters) {
 
 function getStatusText(color) {
   return color == "nodata"
-    ? "No Data Available"
+    ? _("No Data Available")
     : color == "success"
-      ? "Fully Operational"
+      ? _("Fully Operational")
       : color == "failure"
-        ? "Major Outage"
+        ? _("Major Outage")
         : color == "partial"
-          ? "Partial Outage"
-          : "Unknown";
+          ? _("Partial Outage")
+          : _("Unknown");
 }
 
 function getStatusDescriptiveText(color) {
   return color == "nodata"
-    ? "No Data Available: Health check was not performed."
+    ? _("No Data Available: Health check was not performed.")
     : color == "success"
-      ? "No downtime recorded today."
+      ? _("No downtime recorded today.")
       : color == "failure"
-        ? "Major outages recorded today."
+        ? _("Major outages recorded today.")
         : color == "partial"
-          ? "Partial outages recorded today."
-          : "Unknown";
+          ? _("Partial outages recorded today.")
+          : _("Unknown");
 }
 
 function getTooltip(key, date, quartile, color) {
@@ -167,12 +167,11 @@ function getDayAverage(val) {
     return val.reduce((a, v) => a + v) / val.length;
   }
 }
-// 获得相对日
+
 function getRelativeDays(date1, date2) {
   return Math.floor(Math.abs((date1 - date2) / (24 * 3600 * 1000)));
 }
 
-// 用时间分行
 function splitRowsByDate(rows) {
   let dateValues = {};
   let sum = 0,
@@ -238,7 +237,6 @@ function hideTooltip() {
   }, 1000);
 }
 
-// 生成所有报告
 async function genAllReports() {
   const response = await fetch("urls.cfg");
   const configText = await response.text();
@@ -254,7 +252,6 @@ async function genAllReports() {
   }
 }
 
-// 动态生成事故报告
 async function genIncidentReport() {
   const response = await fetch("incident_report.md");
   if (response.ok) {
