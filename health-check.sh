@@ -34,8 +34,10 @@ do
     response=$(curl --write-out '%{http_code}' --silent --output /dev/null $url)
     if [ "$response" -eq 200 ] || [ "$response" -eq 202 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 418 ]; then
       result="success"
+      echo "$url is up ( $response )"
     else
       result="failed"
+      echo "$url is down"
     fi
     if [ "$result" = "success" ]; then
       break
@@ -46,7 +48,7 @@ do
   if [[ $commit == true ]]
   then
     echo $dateTime, $result >> "logs/${key}_report.log"
-    echo "$(tail -3000 logs/${key}_report.log)" > "logs/${key}_report.log"
+    echo "$(tail -1500 logs/${key}_report.log)" > "logs/${key}_report.log"
   else
     echo "    $dateTime, $result"
   fi
