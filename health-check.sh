@@ -13,12 +13,12 @@ echo "Reading $urlsConfig"
 while read -r line
 do
   echo "  $line"
-  IFS='=' read -ra TOKENS <<< "$line"
+  IFS='=' read -ra TOKENS <<< "$line" # Use the equals sign to separate the kEY and URL
   KEYSARRAY+=(${TOKENS[0]})
   URLSARRAY+=(${TOKENS[1]})
 done < "$urlsConfig"
 
-echo "***********************"
+echo "$---------------------$"
 echo "Starting health checks with ${#KEYSARRAY[@]} configs:"
 
 mkdir -p logs
@@ -37,7 +37,7 @@ do
       echo "[*] $url is up (Code: $response)"
     else
       result="failed"
-      echo "[!] $url is down(times $i), wait 1s and retry."
+      echo "[!] $url is down(times $i), wait and retry."
     fi
     if [ "$result" = "success" ]; then
       break
@@ -60,6 +60,6 @@ then
   git config --global user.name 'AGDDoS-bot'
   git config --global user.email '3356136957@qq.com'
   git add -A --force logs/
-  git commit -am '[Automated] Update Health Check Logs [skip ci] [update-status]'
+  git commit -am '[Automated] Update Health Check Logs [skip ci]'
   git push
 fi
