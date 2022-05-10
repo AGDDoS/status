@@ -23,6 +23,6 @@ jobs:
         id: run_shell_script
         run: |
          m=$(bash ./health-check.sh 2>&1)
-         curl -fsS -m 10 --retry 5 --data-raw "$m" https://hc-ping.com/RdBdEOfhQlFEzPxZM694IQ/website
+         curl -fsS -m 10 --retry 5 --data-raw "$m" https://hc-ping.com/RdBdEOfhQlFEzPxZM694IQ/status
 
       
