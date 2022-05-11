@@ -13,7 +13,7 @@ on:
     - cron: "0,15,30,45 * * * *" # 96/day
 
 jobs:
-  health_check:
+  hc:
     runs-on: ubuntu-latest
     name: Check all sites
     steps:
@@ -22,7 +22,6 @@ jobs:
       - name: Run Shell Script
         id: run_shell_script
         run: |
+         curl -fsS -m 10 --retry 5 --data-raw "Jobs started just now." https://hc-ping.com/RdBdEOfhQlFEzPxZM694IQ/status/start
          m=$(bash ./health-check.sh 2>&1)
          curl -fsS -m 10 --retry 5 --data-raw "$m" https://hc-ping.com/RdBdEOfhQlFEzPxZM694IQ/status
-
-      
