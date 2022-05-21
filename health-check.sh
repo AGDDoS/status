@@ -48,7 +48,8 @@ do
   if [[ $commit == true ]]
   then
     echo $dateTime, $result >> "logs/${key}_report.log"
-    echo "$(tail -1500 logs/${key}_report.log)" > "logs/${key}_report.log"
+    echo "$(tail -1400 logs/${key}_report.log)" > "logs/${key}_report.log"
+    # By default we keep 14*100=1400 last log entries.  Feel free to modify this to meet your needs.
   else
     echo "    $dateTime, $result"
   fi
