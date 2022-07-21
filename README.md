@@ -1,3 +1,9 @@
+!!! Plz goto our new [page](https://hellotools.statuspage.io/) !!!
+
+!!! Plz goto our new [page](https://hellotools.statuspage.io/) !!!
+
+!!! Plz goto our new [page](https://hellotools.statuspage.io/) !!!
+
 [![Health Check](../../actions/workflows/health-check.yml/badge.svg)](../../actions/workflows/health-check.yml)
 
 # AGDDoS Status Page
